@@ -1,0 +1,21 @@
+FROM node:16-alpine3.12
+
+
+USER node
+ 
+RUN mkdir -p /home/node/app
+WORKDIR /home/node/app
+ 
+COPY --chown=node:node ./package.json ./
+RUN npm install
+COPY --chown=node:node ./ ./
+
+ENV CHOKIDAR_USEPOLLING=true
+EXPOSE 3000
+
+CMD ["npm","run","start"]
+
+
+# 9d2a68c9d0f6
+# docker run -p 3000:3000 -v /home/node/app/node_modules -v $(pwd):/home/node/app 9d2a68c9d0f677f580f
+# docker run -p 3000:3000 -v /home/node/app/node_modules -v C:\Users\rohit.wagh\docker_tutorial\ft:/home/node/app 9d2a68c9d0f677f580
